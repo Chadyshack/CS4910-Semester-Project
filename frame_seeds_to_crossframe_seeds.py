@@ -28,7 +28,7 @@ for i in range(len(frame_seeds_array) - 8):
     size = min(len(a), len(b))
     # multiply all seeds in a backwards pattern and store each seed
     for i in range(size):
-        c.write(str(a[i] * b[size - 1 - i]) + '\n')
+        c.write(str(a[i] + b[size - 1 - i]) + '\n')
 
 # close both files
 f.close()
