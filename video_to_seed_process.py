@@ -18,9 +18,9 @@ while (True):
         for j in range(cols):
             # extract and test weather this pixel is within an "orange" range
             b, g, r = frame[i, j]
-            if (180 <= r <= 240) and (70 <= g <= 120) and (20 <= b <= 50):
-                # write "orange" pixels to seed file
-                f.write("(" + str(r) + "," + str(g) + "," + str(b) + ")")
+            if (120 <= r) and (20 <= g <= 160) and (0 <= b <= 70):
+                # write "orange" pixels and their locations to seed file
+                f.write("(" + str(r) + "," + str(g) + "," + str(b) + "," + "[" + str(i) + "," + str(j) + "]" + ")")
     # store, show, and count current frame
     f.write("\nDONE WITH FRAME: " + str(frameCount) + "\n")
     print("ON FRAME: " + str(frameCount))
