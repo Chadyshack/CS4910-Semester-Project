@@ -2,10 +2,10 @@
 import cv2
 
 # open video file of fire
-vid = cv2.VideoCapture("burning-charcoal-fire.mp4")
+vid = cv2.VideoCapture("resources/burning-charcoal-fire.mp4")
 
 # open file to write frame seeds to
-f = open("frame_seeds_output.txt", "w")
+f = open("outputs/frame_seeds_output.txt", "w")
 
 # loop through frames in video file
 frameCount = 0

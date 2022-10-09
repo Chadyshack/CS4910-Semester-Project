@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 
 # open crossframe seeds file
-f = open("crossframe_seeds_output.txt", "r")
+f = open("outputs/crossframe_seeds_output.txt", "r")
 
 # read all crossframe seeds
 seeds = f.readlines()

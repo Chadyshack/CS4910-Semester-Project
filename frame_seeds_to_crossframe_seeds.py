@@ -1,8 +1,8 @@
 # open frame seeds file
-f = open("frame_seeds_output.txt", "r")
+f = open("outputs/frame_seeds_output.txt", "r")
 
 # open crossframe seeds file
-c = open("crossframe_seeds_output.txt", "w")
+c = open("outputs/crossframe_seeds_output.txt", "w")
 
 # read all lines of frame seeds file
 frames = f.readlines()
