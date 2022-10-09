@@ -25,13 +25,13 @@ while (True):
                 r = int(r)
                 g = int(g)
                 b = int(b)
-                rand += (str(r*g*b) + ",")
+                rand += (str(i+r*g*b+j) + ",") # INITIAL GENERATION LOGIC
     # store random string (consisting of seeds) for this frame, show and increment frame counter
     f.write(rand[:-1] + '\n')
     print('ON FRAME: ' + str(frameCount))
     frameCount += 1
-    # exit when 100 frames reached
-    if frameCount == 100:
+    # exit when 200 frames reached
+    if frameCount == 200:
         break
 
 # close seed file

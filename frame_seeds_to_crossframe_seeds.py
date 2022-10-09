@@ -2,7 +2,7 @@
 f = open("outputs/frame_seeds_output.txt", "r")
 
 # open crossframe seeds file
-c = open("outputs/crossframe_seeds_output.txt", "w")
+cross = open("outputs/crossframe_seeds_output.txt", "w")
 
 # read all lines of frame seeds file
 frames = f.readlines()
@@ -19,17 +19,21 @@ for frame in frames:
     # append to the frame seeds array
     frame_seeds_array.append(frame_seeds_final)
 
-# loop through all frame seeds now that they are in memory and integer form (stop 3 early to handle for 3 frame lookahead)
-for i in range(len(frame_seeds_array) - 8):
-    # load this frames seeds and 3 frames ahead seeds
+# loop through all frame seeds now that they are in memory and integer form
+if len(frame_seeds_array) < 13:
+    raise Exception
+for i in range(len(frame_seeds_array) - 12):
+    # load this frames seeds and 4/8/12 frames ahead seeds 
     a = frame_seeds_array[i]
-    b = frame_seeds_array[i+8]
-    # find which frame had less seeds
-    size = min(len(a), len(b))
-    # multiply all seeds in a backwards pattern and store each seed
+    b = frame_seeds_array[i+4]
+    c = frame_seeds_array[i+8]
+    d = frame_seeds_array[i+12]
+    # find which frame has the least seeds
+    size = min(len(a), len(b), len(c), len(d))
+    # perform cross-frame operation on seeds to create and write final seeds
     for i in range(size):
-        c.write(str(a[i] + b[size - 1 - i]) + '\n')
+        cross.write(str((a[i] + c[size - 1 - i]) * (b[i] + d[size - 1 - i]))) # SECOND GENERATION LOGIC
 
 # close both files
 f.close()
-c.close()
+cross.close()
