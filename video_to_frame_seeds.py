@@ -20,15 +20,18 @@ while (True):
         for j in range(cols):
             # extract and test weather this pixel is within an "orange" range
             b, g, r = frame[i, j]
-            if (120 <= r) and (20 <= g <= 160) and (5 <= b <= 70):
+            if (120 <= r) and (20 <= g <= 160) and (0 <= b <= 70):
                 # write seed for this pixel to random string
-                rand += (str(((r + i) * (g + j)) * b) + ",")
+                r = int(r)
+                g = int(g)
+                b = int(b)
+                rand += (str(r*g*b) + ",")
     # store random string (consisting of seeds) for this frame, show and increment frame counter
     f.write(rand[:-1] + '\n')
     print('ON FRAME: ' + str(frameCount))
     frameCount += 1
-    # exit when end of video reached
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    # exit when 100 frames reached
+    if frameCount == 100:
         break
 
 # close seed file

@@ -20,10 +20,10 @@ for frame in frames:
     frame_seeds_array.append(frame_seeds_final)
 
 # loop through all frame seeds now that they are in memory and integer form (stop 3 early to handle for 3 frame lookahead)
-for i in range(len(frame_seeds_array) - 3):
+for i in range(len(frame_seeds_array) - 8):
     # load this frames seeds and 3 frames ahead seeds
     a = frame_seeds_array[i]
-    b = frame_seeds_array[i+3]
+    b = frame_seeds_array[i+8]
     # find which frame had less seeds
     size = min(len(a), len(b))
     # multiply all seeds in a backwards pattern and store each seed
