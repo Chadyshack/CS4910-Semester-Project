@@ -1,3 +1,5 @@
+# DEPRECATED
+
 # normality testing and or plotting imports
 import matplotlib.pyplot as plt
 

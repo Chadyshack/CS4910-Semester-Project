@@ -32,7 +32,7 @@ for i in range(len(frame_seeds_array) - 12):
     size = min(len(a), len(b), len(c), len(d))
     # perform cross-frame operation on seeds to create and write final seeds
     for i in range(size):
-        cross.write(str((a[i] + c[size - 1 - i]) * (b[i] + d[size - 1 - i]))) # SECOND GENERATION LOGIC
+        cross.write(str(format(((a[i] + c[size - 1 - i]) * (b[i] + d[size - 1 - i])), "b"))) # SECOND GENERATION LOGIC
 
 # close both files
 f.close()
