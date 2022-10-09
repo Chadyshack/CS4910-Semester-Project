@@ -13,5 +13,5 @@ for seed in seeds:
     seed_array.append(int(seed))
 
 # create histogram
-plt.hist(seed_array, edgecolor="black", bins=20)
+plt.hist(seed_array, edgecolor="black", bins=100)
 plt.show()
