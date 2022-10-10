@@ -32,10 +32,10 @@ while (True):
             b, g, r = frame[i, j]
             if (120 <= r) and (20 <= g <= 160) and (0 <= b <= 70):
                 # write seed for this pixel to seeds array
-                hashIngest = format(r, '03d') + format(i, '04d') + format(g, '03d') + format(j, '04d') + format(b, '02d')
+                hashIngest = format(r, '03d') + format(int(i/4), '03d') + format(g, '03d') + format(int(j/4), '03d') + format(b, '02d')
                 # NOTE: There are 136 red, 141 green, 71 blue, 270 i, and 480 j possibilities for each value respectively,
                 # this gives (136 * 141 * 71 * 270 * 480) = 176,449,881,600 possible pixel seeds!
-                seeds.append(hashlib.md5((hashIngest).encode('utf-8')).hexdigest())
+                seeds.append(hashlib.md5(hashIngest.encode('utf-8')).hexdigest())
     # store seeds array (consisting of pixel seeds in md5 hex form) for this frame
     frameSeedsArray.append(seeds)
     # show and increment frame counter, display seed count
