@@ -1,6 +1,5 @@
 # Project specific files
-crossframe_seeds_output.txt
-frame_seeds_output.txt
+random-bit-stream.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -132,4 +131,3 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .gitignore
-frame_seeds_output.txt
