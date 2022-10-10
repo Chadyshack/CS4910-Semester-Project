@@ -41,8 +41,8 @@ while (True):
     # show and increment frame counter, display seed count
     print('FINISHED FRAME: ' + str(frameCount) + " WITH " + str(len(seeds)) + " FIRE PIXEL SEEDS")
     frameCount += 1
-    # exit when 100 frames reached (make this configurable)
-    if frameCount == 100:
+    # stop when 240 frames reached (end of the example video)
+    if frameCount == 240:
         break
 
 # loop through all frame seeds now that they are in memory
