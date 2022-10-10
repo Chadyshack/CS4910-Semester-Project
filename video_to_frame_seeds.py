@@ -1,4 +1,4 @@
-# video processing and md5 import
+# video processing and hashlib import
 import cv2
 import hashlib
 
@@ -19,7 +19,7 @@ while (True):
     # iterate over frames pixels
     for i in range(rows):
         for j in range(cols):
-            # extract and test weather this pixel is within an "orange" range
+            # extract and test weather this pixel is within an "orange fire" range
             b, g, r = frame[i, j]
             if (120 <= r) and (20 <= g <= 160) and (0 <= b <= 70):
                 # write seed for this pixel to random bytes array
@@ -32,7 +32,7 @@ while (True):
         f.write(seed.hexdigest() + ',')
     f.write('\n')
     # show and increment frame counter
-    print('FINISHED FRAME: ' + str(frameCount))
+    print('FINISHED FRAME: ' + str(frameCount) + " WITH " + str(len(rand)) + " FIRE PIXEL SEEDS")
     frameCount += 1
     # exit when 32 frames reached
     if frameCount == 32:
