@@ -57,7 +57,7 @@ for i in range(len(frameSeedsArray) - 12):
     # perform mixed cross-frame hash operation on pixel seeds to create and write final seeds
     for i in range(size):
         hashIngest = a[i] + b[size - 1 - i] + c[i] + d[size - 1 - i]
-        hashResultHex = hashlib.sha256((hashIngest).encode('utf-8')).hexdigest()
+        hashResultHex = hashlib.sha512((hashIngest).encode('utf-8')).hexdigest()
         # write final seeds data as a ascii binary stream
         f.write(hex_to_bin(hashResultHex))
 
