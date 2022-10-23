@@ -52,7 +52,8 @@ for i in range(len(frameSeedsArray) - 12):
     b = frameSeedsArray[i+4]
     c = frameSeedsArray[i+8]
     d = frameSeedsArray[i+12]
-    # find which frame has the least seeds, this will determine the amount of cross-frame seeds we make for this set of four
+    # find which frame has the least seeds,
+    # this will determine the amount of cross-frame seeds we make for this set of four
     size = min(len(a), len(b), len(c), len(d))
     # perform mixed cross-frame hash operation on pixel seeds to create and write final seeds
     for i in range(size):
