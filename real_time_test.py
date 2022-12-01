@@ -23,7 +23,7 @@ while True :
         print('[Exiting] No more frames to read')
         break
     # adding a delay for simulating video processing time 
-    delay = 0.03 # delay value in seconds
+    delay = 0.03
     time.sleep(delay) 
     num_frames_processed += 1
     # displaying frame 
