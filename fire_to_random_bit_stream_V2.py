@@ -3,7 +3,12 @@ import cv2
 import hashlib
 
 # open video file of fire
-vid = cv2.VideoCapture("resources/burning-charcoal-fire.mp4")
+vid = cv2.VideoCapture(0)
+
+# make sure that it opened properly
+if vid.isOpened() is False :
+  print("Exiting: Cannot access webcam stream!")
+  exit(0)
 
 # open file to write random bit stream to
 f = open("outputs/random-bit-stream.txt", "w")
@@ -32,10 +37,10 @@ while (True):
             b, g, r = frame[i, j]
             if (120 <= r) and (20 <= g <= 160) and (0 <= b <= 70):
                 # write seed for this pixel to seeds array
-                hashIngest = format(r, '03d') + format(int(i/4), '03d') + format(g, '03d') + format(int(j/4), '03d') + format(b, '02d')
                 # NOTE: There are 136 red, 141 green, 71 blue, 270 i, and 480 j possibilities for each value respectively,
                 # this gives (136 * 141 * 71 * 270 * 480) = 176,449,881,600 possible pixel seeds!
-                seeds.append(hashlib.md5(hashIngest.encode('utf-8')).hexdigest())
+                hashIngest = format(r, '03d') + format(int(i/4), '03d') + format(g, '03d') + format(int(j/4), '03d') + format(b, '02d')
+                seeds.append(hashIngest)
     # store seeds array (consisting of pixel seeds in md5 hex form) for this frame
     frameSeedsArray.append(seeds)
     # show and increment frame counter, display seed count
@@ -57,7 +62,8 @@ for i in range(len(frameSeedsArray) - 12):
     size = min(len(a), len(b), len(c), len(d))
     # perform mixed cross-frame hash operation on pixel seeds to create and write final seeds
     for i in range(size):
-        hashIngest = a[i] + b[size - 1 - i] + c[i] + d[size - 1 - i]
+        hashIngest = ((hashlib.md5(a[i].encode('utf-8')).hexdigest()) + (hashlib.md5(b[size - 1 - i].encode('utf-8')).hexdigest()) + 
+                        (hashlib.md5(c[i].encode('utf-8')).hexdigest()) + (hashlib.md5(d[size - 1 - i].encode('utf-8')).hexdigest()))
         hashResultHex = hashlib.sha512((hashIngest).encode('utf-8')).hexdigest()
         # write final seeds data as a ascii binary stream
         f.write(hex_to_bin(hashResultHex))
