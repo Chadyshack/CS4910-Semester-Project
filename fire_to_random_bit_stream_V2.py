@@ -1,14 +1,7 @@
-# video processing and hashlib import
+# video processing, timing, and hashlib import
 import cv2
 import hashlib
-
-# open video file of fire
-vid = cv2.VideoCapture(0)
-
-# make sure that it opened properly
-if vid.isOpened() is False :
-  print("Exiting: Cannot access webcam stream!")
-  exit(0)
+import time
 
 # open file to write random bit stream to
 f = open("outputs/random-bit-stream.txt", "w")
@@ -17,9 +10,18 @@ f = open("outputs/random-bit-stream.txt", "w")
 def hex_to_bin(h):
   return bin(int(h, 16))[2:].zfill(len(h) * 4)
 
+# open video stream of webcam
+vid = cv2.VideoCapture(0)
+
+# make sure that webcam opened properly
+if vid.isOpened() is False :
+  print("Exiting: Cannot access webcam stream!")
+  exit(0)
+
 # loop through frames in video file, storing each frames pixel seeds
 frameSeedsArray = []
 frameCount = 0
+start_true_time = time.perf_counter() # start timer for true random portion
 while (True):
     # initialize this frames seeds array
     seeds = []
@@ -37,8 +39,6 @@ while (True):
             b, g, r = frame[i, j]
             if (120 <= r) and (20 <= g <= 160) and (0 <= b <= 70):
                 # write seed for this pixel to seeds array
-                # NOTE: There are 136 red, 141 green, 71 blue, 270 i, and 480 j possibilities for each value respectively,
-                # this gives (136 * 141 * 71 * 270 * 480) = 176,449,881,600 possible pixel seeds!
                 hashIngest = format(r, '03d') + format(int(i/4), '03d') + format(g, '03d') + format(int(j/4), '03d') + format(b, '02d')
                 seeds.append(hashIngest)
     # store seeds array (consisting of pixel seeds in md5 hex form) for this frame
@@ -46,11 +46,15 @@ while (True):
     # show and increment frame counter, display seed count
     print('FINISHED FRAME: ' + str(frameCount) + " WITH " + str(len(seeds)) + " FIRE PIXEL SEEDS")
     frameCount += 1
-    # stop when 240 frames reached (end of the example video)
-    if frameCount == 240:
+    # stop when 144 frames have been captured
+    if frameCount == 144:
         break
+# end timer for true random portion and display time taken
+end_true_time = time.perf_counter()
+print(f"Finished true random portion in {end_true_time - start_true_time:0.4f} seconds")
 
 # loop through all frame seeds now that they are in memory
+start_psuedo_time = time.perf_counter() # start timer for psuedo random portion
 for i in range(len(frameSeedsArray) - 12):
     # load this frames seeds and 4/8/12 frames ahead seeds 
     a = frameSeedsArray[i]
@@ -67,6 +71,9 @@ for i in range(len(frameSeedsArray) - 12):
         hashResultHex = hashlib.sha512((hashIngest).encode('utf-8')).hexdigest()
         # write final seeds data as a ascii binary stream
         f.write(hex_to_bin(hashResultHex))
+# end timer for true random portion and display time taken
+end_psuedo_time = time.perf_counter()
+print(f"Finished psuedo random portion in {end_psuedo_time - start_psuedo_time:0.4f} seconds")
 
 # close random bit stream file
 f.close()
